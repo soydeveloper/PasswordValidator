@@ -10,6 +10,10 @@ import java.util.ArrayList;
 public class MySQLdb {
 
 	private Connection connection;
+	private String host="localhost";
+	private String puerto="3306";
+	private String usuarioDB="cliente";
+	private String password="1234";
 
 	public MySQLdb(){
 		makeConnectionToDB();
@@ -29,7 +33,7 @@ public class MySQLdb {
 
 		//CREAMOS UNA CONEXION
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/password_validation","cliente", "1234");
+			connection = DriverManager.getConnection("jdbc:mysql://"+host+":"+puerto+"/password_validation",usuarioDB,password);
 		} catch (SQLException e) {
 			System.out.println("No se ha podido conectar. Revise sus credenciales");
 		}
