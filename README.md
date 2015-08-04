@@ -1,4 +1,4 @@
-## Synopsis
+## Descripción
 
 Esta herramienta permite validar el usuario y la contraseña de un sitio de internet validando con el post de login. Está integramente escrito en Java.\n\r
 
