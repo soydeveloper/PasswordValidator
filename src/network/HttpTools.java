@@ -65,23 +65,27 @@ public class HttpTools {
 
 	public String getFormParams(String html, String tagName, FormField username, FormField password) throws UnsupportedEncodingException {
 
+		//CREAMOS UN OBJETO JSOUP PARA MANEJAR EL HTML FACILMENTE
 		Document doc = Jsoup.parse(html);
 
+		//BUSCAMOS EL FORMULARIO CON EL TAG PASADO POR PARAMETRO
 		Element loginform = doc.getElementById(tagName);
+		//SACAMOS TODOS LOS TAGS INPUT QUE ENCONTREMOS DENTRO DEL FORMULARIO
 		Elements inputElements = loginform.getElementsByTag("input");
 		List<String> paramList = new ArrayList<String>();
 		for (Element inputElement : inputElements) {
 			String key = inputElement.attr("name");
 			String value = inputElement.attr("value");
 
+			//SI EL INPUT ES DE USUARIO AÑADIMOS EL USUARIO PASADO POR PARAMETRO
 			if (key.equals(username.getFieldName()))
 				value = username.getValue();
+			//SI EL INPUT ES DE CONTRASEÑAS AÑADIMOS EL PASSWORD PASADO POR PARAMETRO
 			else if (key.equals(password.getFieldName()))
 				value = password.getValue();
 			paramList.add(key + "=" + URLEncoder.encode(value, "UTF-8"));
 		}
 
-		// build parameters list
 		StringBuilder result = new StringBuilder();
 		for (String param : paramList) {
 			if (result.length() == 0) {
@@ -98,7 +102,7 @@ public class HttpTools {
 		URL obj = new URL(url);
 		conn = (HttpsURLConnection) obj.openConnection();
 
-		// Acts like a browser
+		//VAMOS A MENTIR Y HACER CREER QUE SOMOS UN NAVEGADOR
 		conn.setUseCaches(false);
 		conn.setRequestMethod("POST");
 		conn.setRequestProperty("User-Agent", USER_AGENT);
@@ -115,7 +119,7 @@ public class HttpTools {
 		conn.setDoOutput(true);
 		conn.setDoInput(true);
 
-		// Send post request
+		//HACEMOS EL POST
 		DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 		wr.writeBytes(postParams);
 		wr.flush();

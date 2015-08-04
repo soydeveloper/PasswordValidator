@@ -45,6 +45,7 @@ public class MySQLdb {
 
 			MySQLdb db = new MySQLdb();
 
+			//MUESTRA TODOS LOS USUARIOS QUE AL MENOS TIENEN UN PORTAL Y SU RESPECTIVA CONTRASEÑA PARA CADA.
 			String query = 	"SELECT cliente.id, cliente.nombre, cliente.email,portal.id, portal.nombre, portal.loginURL, portal.postURL, cliente_has_portal.username, cliente_has_portal.password"+
 							" FROM cliente"+
 							" INNER JOIN cliente_has_portal ON cliente_has_portal.cliente_id = cliente.id"+
@@ -82,7 +83,6 @@ public class MySQLdb {
 			st.close();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		return listaClientes;
